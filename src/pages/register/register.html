@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Registro
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page3" style="background-color:#FFFFFF;">
+  <form id="registro-form4">
+    <ion-list id="registro-list4">
+      <ion-item id="registro-input5">
+        <ion-label>
+          Nombres
+        </ion-label>
+        <ion-input type="text" #firstname></ion-input>
+      </ion-item>
+      <ion-item id="registro-input8">
+        <ion-label>
+          Apellidos
+        </ion-label>
+        <ion-input type="text" #lastname></ion-input>
+      </ion-item>
+      <ion-item id="registro-input6">
+        <ion-label>
+          Email
+        </ion-label>
+        <ion-input type="text" #username></ion-input>
+      </ion-item>
+      <ion-item id="registro-input7">
+        <ion-label>
+          Clave
+        </ion-label>
+        <ion-input type="password" #password></ion-input>
+      </ion-item>
+      <ion-item id="registro-checkbox1">
+        <ion-label>
+          Acepto los <span (click)="terminos()">Terminos Legales</span>
+        </ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+    </ion-list>
+    <button id="registro-button11" ion-button color="energized" block (click)="registerUser()">
+      Registrarme
+    </button>
+    <div id="registro-markdown8" class="show-list-numbers-and-dots">
+      <p style="color:#000000;">
+        Si ya tienes cuenta puedes
+        <strong>
+          <span (click)="irLogin()">Ingresar</span>
+        </strong>
+      </p>
+    </div>
+  </form>
+</ion-content>

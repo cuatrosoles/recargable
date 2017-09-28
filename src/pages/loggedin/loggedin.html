@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Panel
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page2" style="background-color:#FFFFFF;">
+  <div class="spacer" style="width:300px;height:17px;" id="panel-spacer4"></div>
+  <ion-card id="panel-card22">
+    <ion-list>
+      <ion-item color="none" id="panel-list-item15">
+        <ion-avatar item-left>
+          <img *ngIf="userProfile" [src]="userProfile.photoURL"/>
+        </ion-avatar>
+        <h5 *ngIf="!userProfile">{{ email }}</h5>
+        <h2 *ngIf="userProfile">{{ userProfile.displayName }}</h2>
+        <h3 *ngIf="userProfile">{{ userProfile.email }}</h3>
+      </ion-item>
+      <ion-item id="panel-list-item-container4">
+        <div id="panel-markdown5" class="show-list-numbers-and-dots">
+          <p style="margin-top:0px;color:#000000;">
+            Dinero en Cuenta
+            <strong>
+              $2340,00
+            </strong>
+          </p>
+        </div>
+        <div id="panel-markdown6" class="show-list-numbers-and-dots">
+          <p style="margin-top:0px;color:#000000;">
+            Dinero Disponible
+            <strong>
+              $1880,35
+            </strong>
+          </p>
+        </div>
+        <div id="panel-markdown7" class="show-list-numbers-and-dots">
+          <p style="margin-top:0px;color:#000000;">
+            Extracciones
+            <strong>
+              3
+            </strong>
+          </p>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <button id="panel-button9" ion-button outline color="positive" block large style="font-weight:300;border-radius:0px 0px 0px 0px;">
+    Mis Datos
+  </button>
+  <button id="panel-button10" ion-button outline color="energized" block large style="font-weight:300;border-radius:0px 0px 0px 0px;">
+    Mis Finanzas
+  </button>
+  <button (click)="logout()" ion-button block>Salir</button>
+</ion-content>
