@@ -1,0 +1,96 @@
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: rgba(255, 255, 255, 0);
+    color: #f7720f;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: rgba(255, 255, 255, 0);
+    color: #f7720f;
+}
+
+.overview h1 {
+    color: #f7720f;
+}
+.colored-line-left::after {
+    background-color: #f7720f;
+
+}
+#accordion .panel-title > a{color: #f7720f;}
+
+.item-list-right li i:hover {
+    background: #f7720f none repeat scroll 0 0;
+    box-shadow: 0 0 0 5px #f7720f;
+}
+.item-list-right li i{
+	color:#f7720f;
+}
+
+.item-list-left li i{
+	color:#f7720f;	
+	}
+	
+	.item-list-left li i:hover {
+    background: #f7720f none repeat scroll 0 0;
+    box-shadow: 0 0 0 5px #f7720f;
+}
+
+.btn-default, .label-default {
+    background-color: #f7720f;
+    border-color: #f7720f;
+
+}
+
+.social_icons ul li i:hover{
+ color:#f7720f;
+}
+	
+	
+.btn-default:hover, .btn-default:focus {
+    background-color: #ff7c1a;
+    border-color: #ff7c1a;
+    color: #fff;
+}	
+
+.copyright a:hover {
+    color: #ff7c1a;
+    opacity: 1;
+}
+
+.form-control {
+    color: #ff7c1a;
+}
+
+
+.spotlight-features li:hover .hi-icon-2::before {
+    animation: 2s linear 0s normal none infinite running spinAround;
+    box-shadow: 0 0 0 2px #ff7c1a;
+	border-radius: 50%;
+	background:#ff7c1a;
+	color:#fff;
+	   }
+	   
+.carousel-indicators .active {
+    background-color: #ff7c1a;
+    border: 1px solid #ff7c1a;
+    border-radius: 10px;
+    height: 15px;
+    margin: 0 2px;
+    width: 15px;
+}	   
+	   
+#color-overlay {
+    background-color: rgba(247, 114, 15, 0.8);
+}	
+.carousel-indicators li.abc {
+   border: 1px solid #ff7c1a !important;
+} 
+
+.dark-theme .overview h1 {color: #fff !important;}
+.dark-theme .hi-icon-2-wrap {color: #ff7c1a;display: inline-block;float: left;margin: 0 15px 0 auto;text-align: center;} 
+dark-theme .item-list-right h3, .dark-theme.item-list-left h3 {color: #fff !important;} 
+.dark-theme #download h1::after {background-color: #ff7c1a;}
+.dark-theme .colored-lines-left::after{background-color: #ff7c1a;}	
+.dark-theme .sixteen a i:hover {background-color: #ff7c1a; border-color: #ff7c1a;}
+.dark-theme .team-col h3{color:#ff7c1a;}
+.dark-theme #contact h3::before {background:#ff7c1a none repeat scroll 0 0;}  
+	

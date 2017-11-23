@@ -1,0 +1,104 @@
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: rgba(255, 255, 255, 0);
+    color:#A07D33;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: rgba(255, 255, 255, 0);
+    color: #A07D33;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: #f5f5f5;
+    color: #A07D33;
+    text-decoration: none;
+}
+#accordion .panel-title > a{color: #A07D33;}
+
+.overview h1 {
+    color:#A07D33;
+}
+.colored-line-left::after {
+    background-color: #A07D33;
+
+}
+
+.item-list-right li i:hover {
+    background:#A07D33 none repeat scroll 0 0;
+    box-shadow: 0 0 0 5px #A07D33;
+}
+.item-list-right li i{
+	color:#A07D33;
+}
+
+.item-list-left li i{
+	color:#A07D33;	
+	}
+	
+	.item-list-left li i:hover {
+    background:#A07D33 none repeat scroll 0 0;
+    box-shadow: 0 0 0 5px #A07D33;
+}
+
+.btn-default, .label-default {
+    background-color:#A07D33;
+    border-color:#A07D33;
+
+}
+
+.social_icons ul li i:hover{
+ color:#A07D33;
+}
+	
+	
+.btn-default:hover, .btn-default:focus {
+    background-color:#b08c40;
+    border-color:#b08c40;
+    color: #fff;
+}	
+
+.copyright a:hover {
+    color: #A07D33;
+    opacity: 1;
+}
+
+.form-control {
+    color:#A07D33;
+}
+
+
+.spotlight-features li:hover .hi-icon-2::before {
+    animation: 2s linear 0s normal none infinite running spinAround;
+    box-shadow: 0 0 0 2px #A07D33;
+	border-radius: 50%;
+	background:#A07D33;
+	color:#fff;
+	   }
+	   
+.carousel-indicators .active {
+    background-color:#A07D33;
+    border: 1px solid #A07D33;
+    border-radius: 10px;
+    height: 15px;
+    margin: 0 2px;
+    width: 15px;
+}	   
+
+#color-overlay {
+    background-color: rgba(160, 125, 51, 0.8);
+}
+
+.carousel-indicators li.abc {
+   border: 1px solid #A07D33 !important;
+}
+
+.dark-theme .overview h1 {color: #fff !important;}
+.dark-theme .hi-icon-2-wrap {color: #A07D33;display: inline-block;float: left;margin: 0 15px 0 auto;text-align: center;} 
+dark-theme .item-list-right h3, .dark-theme.item-list-left h3 {color: #fff !important;} 
+.dark-theme #download h1::after {background-color: #A07D33;}
+.dark-theme .colored-lines-left::after{background-color: #A07D33;}	
+.dark-theme .sixteen a i:hover {background-color: #A07D33; border-color: #A07D33;}
+.dark-theme .team-col h3{color:#A07D33;}
+.dark-theme #contact h3::before {background:#A07D33 none repeat scroll 0 0;}  		   
+	   
+	

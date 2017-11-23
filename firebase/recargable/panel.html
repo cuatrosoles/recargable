@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>   
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>
+        Recargable
+    </title>
+  
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+    
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,300,500,600,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+    <!--[if lte IE 9]>
+      <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+    <![endif]-->
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+
+    <style>
+      #muestra_mapas {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 5%;
+      }
+    </style>
+    <style>
+      #map {
+        width: 100%;
+        height: 400px;
+      }
+    </style>
+    <style>
+      #mis_fotos {
+        width: 100%;
+      }
+      ul {list-style: none; margin: 1%; }
+      img {vertical-align: middle; width: 100% !important;}
+    </style>
+    
+    <!-- custome css -->
+    <link href="assets/css/animate.css" rel="stylesheet">
+    <link href="assets/css/prettyPhoto.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/media.css" rel="stylesheet">
+    <link href="assets/fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="main.css" rel="stylesheet">
+
+        
+    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="">
+    <link rel="shortcut icon" href="">
+
+    <!-- ace settings handler -->
+    <script src="assets/js/ace-extra.min.js"></script>
+
+<!-- Google Maps!! -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcQnx-7Y1-9GRbO1beOe4OuTuIguZMlZ4" async defer></script>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!-- Leave out Storage -->
+<!-- <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script> -->
+
+<script src="assets/js/firebase.js"></script>
+<script src="assets/js/firebase-app.js"></script>
+<script src="assets/js/firebase-auth.js"></script>
+<script src="assets/js/firebase-database.js"></script>
+<script src="assets/js/firebase-messaging.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBJ51JCZ5jz4ySNvDdoyEuCxFSS_BEOGT8",
+    authDomain: "recargableapp.firebaseapp.com",
+    databaseURL: "https://recargableapp.firebaseio.com",
+    projectId: "recargableapp",
+    storageBucket: "recargableapp.appspot.com",
+    messagingSenderId: "924921720926"
+  };
+  firebase.initializeApp(config);
+
+</script>
+
+<script type="text/javascript">
+    /**
+     * Handles the sign in button press.
+     */
+    function toggleSignIn() {
+      if (firebase.auth().currentUser) {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      } else {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        if (email.length < 4) {
+          alert('Please enter an email address.');
+          return;
+        }
+        if (password.length < 4) {
+          alert('Please enter a password.');
+          return;
+        }
+        // Sign in with email and pass.
+        // [START authwithemail]
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.');
+          } else {
+            alert(errorMessage);
+          }
+          console.log(error);
+          document.getElementById('quickstart-sign-in').disabled = false;
+          // [END_EXCLUDE]
+        });
+        // [END authwithemail]
+      }
+      document.getElementById('quickstart-sign-in').disabled = true;
+    }
+    /**
+     * Handles the sign up button press.
+     */
+    function handleSignUp() {
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      if (email.length < 4) {
+        alert('Please enter an email address.');
+        return;
+      }
+      if (password.length < 4) {
+        alert('Please enter a password.');
+        return;
+      }
+      // Sign in with email and pass.
+      // [START createwithemail]
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+      // [END createwithemail]
+    }
+    /**
+     * Sends an email verification to the user.
+     */
+    function sendEmailVerification() {
+      // [START sendemailverification]
+      firebase.auth().currentUser.sendEmailVerification().then(function() {
+        // Email Verification sent!
+        // [START_EXCLUDE]
+        alert('Email Verification Sent!');
+        // [END_EXCLUDE]
+      });
+      // [END sendemailverification]
+    }
+    function sendPasswordReset() {
+      var email = document.getElementById('email').value;
+      // [START sendpasswordemail]
+      firebase.auth().sendPasswordResetEmail(email).then(function() {
+        // Password Reset Email Sent!
+        // [START_EXCLUDE]
+        alert('Password Reset Email Sent!');
+        // [END_EXCLUDE]
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/invalid-email') {
+          alert(errorMessage);
+        } else if (errorCode == 'auth/user-not-found') {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+      // [END sendpasswordemail];
+    }
+
+     /**
+     * initApp handles setting up UI event listeners and registering Firebase auth listeners:
+     *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
+     *    out, and that is where we update the UI.
+     */
+    function initApp() {
+      // Listening for auth state changes.
+      // [START authstatelistener]
+      firebase.auth().onAuthStateChanged(function(user) {
+        // [START_EXCLUDE silent]
+        // document.getElementById('quickstart-verify-email').disabled = true;
+
+        // [END_EXCLUDE]
+        if (user) {
+          // User is signed in.
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          var providerData = user.providerData;
+
+          // [START_EXCLUDE]
+
+          document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+          document.getElementById('quickstart-sign-in').textContent = 'Salir';
+          document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+          document.getElementById('user_name').textContent = JSON.stringify(user.displayName);
+          //document.getElementById('user_name2').textContent = JSON.stringify(user.displayName);
+          //document.getElementById('user_email').textContent = JSON.stringify(user.email);
+          //document.getElementById('user_email_verificado').textContent = JSON.stringify(user.emailVerified);
+          //document.getElementById('user_photoURL').textContent = JSON.stringify(user.providerData);
+          //document.getElementById('user_uid').textContent = JSON.stringify(user.uid);
+          //document.getElementById('user_providerData').textContent = JSON.stringify(user.providerData);
+
+          if (!emailVerified) {
+            document.getElementById('quickstart-verify-email').disabled = false;
+          }
+
+          var db = firebase.database();  
+
+          db.ref("accounts/" + uid + "/card_number").on('value', function(snapshot){       
+            var numCard = snapshot.val();
+            document.getElementById('numCard').innerHTML = numCard;
+          });
+
+          db.ref("accounts/" + uid + "/card_status").on('value', function(snapshot){       
+            var statusCard = snapshot.val();
+            document.getElementById('statusCard').innerHTML = statusCard;
+          });
+
+          db.ref("accounts/" + uid + "/card_validity").on('value', function(snapshot){       
+            var validityCard = snapshot.val();
+            document.getElementById('validityCard').innerHTML = validityCard;
+          });
+
+          db.ref("accounts/" + uid + "/card_amount").on('value', function(snapshot){       
+            var amountCard = snapshot.val();
+            document.getElementById('amountCard').innerHTML = amountCard;
+          });
+
+          db.ref("accounts/" + uid + "/name").on('value', function(snapshot){       
+            var name = snapshot.val();
+            document.getElementById('name').innerHTML = name;
+          });
+
+          db.ref("accounts/" + uid + "/email").on('value', function(snapshot){       
+            var email = snapshot.val();
+            document.getElementById('email').innerHTML = email;
+          });
+
+          db.ref("accounts/" + uid + "/dateCreated").on('value', function(snapshot){       
+            var dateCreated = snapshot.val();
+            document.getElementById('dateCreated').innerHTML = dateCreated;
+          });
+
+          db.ref("accounts/" + uid + "/ciudad").on('value', function(snapshot){       
+            var ciudad = snapshot.val();
+            document.getElementById('ciudad').innerHTML = ciudad;
+          });
+
+          db.ref("accounts/" + uid + "/pais").on('value', function(snapshot){       
+            var pais = snapshot.val();
+            document.getElementById('pais').innerHTML = pais;
+          });
+
+          db.ref("accounts/" + uid + "/img").on('value', function(snapshot){       
+            var img = snapshot.val();
+            document.getElementById('img-avatar').innerHTML = '<img id="avatar" class="editable img-responsive" src="' + img + '" width="34px" />';
+          });
+
+          db.ref("accounts/" + uid + "/img").on('value', function(snapshot){       
+            var img = snapshot.val();
+            document.getElementById('img-avatar-2').innerHTML = '<img id="avatar" class="editable img-responsive" src="' + img + '" width="190px" />';
+          });
+
+          db.ref("accounts/" + uid + "/fechaNacimiento").on('value', function(snapshot){       
+            var fechaNacimiento = snapshot.val();
+            document.getElementById('fechaNacimiento').innerHTML = fechaNacimiento;
+          });
+
+          ///////// GALERIA DE FOTOS   /////////////////////////////////////////////////
+          //db.ref("accounts/" + uid + "/fotos/").on('value', function(snapshot){
+          //  var numCard = snapshot.val();
+          //  document.getElementById('mis_fotos').innerHTML = numCard.nombre;
+          //  console.log('Data :', numCard)
+          //});
+
+        
+          this.query = firebase.database().ref('/accounts/' + firebase.auth().currentUser.uid + '/fotos/').orderByKey();
+          this.query.once("value")
+          .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val();   
+              let data = JSON.parse(JSON.stringify(childData));
+              let data2 = JSON.stringify(childData);             
+
+              var imageSrc = data.url;
+              var imageTit = data.text;
+              var imagePos = data.lat + ' - ' + data.lng;
+              var li = document.createElement('li');
+              var ul = document.createElement('ul');
+              var div = document.getElementById('mis_fotos');
+              ul.appendChild(li);
+              div.appendChild(ul);
+              li.innerHTML = '<span><img src="' + imageSrc + '" /></span>';
+
+              var arr = data2;
+                  for(var i=0; i < arr.length; i++) {
+                    //console.log(arr[i]);
+                    console.log(arr.length);
+                }
+
+
+              var neighborhoods = [
+                {lat: -33.8766, lng: -60.5758},
+                {lat: -33.8769, lng: -60.5751},
+                {lat: -33.8801, lng: -60.5899},
+                {lat: -33.8788, lng: -60.5763}
+              ];
+
+              console.log(arr);
+              console.log(neighborhoods);
+
+
+              var markers = [];
+              var map;
+
+              map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 15,
+                  center: {lat: -33.876112, lng: -60.575735}
+                });
+
+              position = new google.maps.LatLng(data.lat, data.lng);
+              //console.log(position);
+
+              clearMarkers();
+              for (var i = 0; i < neighborhoods.length; i++) {
+                addMarkerWithTimeout(neighborhoods[i], i * 200);
+              }
+              
+
+              function addMarkerWithTimeout(position, timeout) {
+              window.setTimeout(function() {
+                markers.push(new google.maps.Marker({
+                  position: position,
+                  map: map,
+                  animation: google.maps.Animation.DROP
+                }));
+              }, timeout);
+              }
+
+              function clearMarkers() {
+              for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+              }
+              markers = [];
+            }
+      
+            /*  
+            if(position){
+              //function initMap() {
+                  console.log('Position: ', position);
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 14,
+                    center: position
+                  });
+                  var marker = new google.maps.Marker({
+                    position: position,
+                    map: map
+                  });
+              //}
+              }
+            */
+
+
+          });
+        });
+              
+
+          // [END_EXCLUDE]
+        } else {
+          // User is signed out.
+          window.location.replace("login.html");
+          // [START_EXCLUDE]
+          document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+          document.getElementById('quickstart-sign-in').textContent = 'Ingresar';
+          document.getElementById('quickstart-account-details').textContent = 'null';
+          // [END_EXCLUDE]          
+        }
+        // [START_EXCLUDE silent]
+        document.getElementById('quickstart-sign-in').disabled = false;
+        // [END_EXCLUDE]
+      });
+      // [END authstatelistener]
+      document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+      //window.location.replace("login.html");
+      document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+      document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+      document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+    }
+    window.onload = function() {
+      initApp();
+    };
+  </script>
+
+</head>
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state">
+      <div class="navbar-container ace-save-state" id="navbar-container">
+        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+          <span class="sr-only">Toggle sidebar</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header pull-left">
+          <a href="index.html" class="navbar-brand"><img src="assets/images/logo.png" alt="Recargable"></a>
+        </div>
+        <div class="navbar-buttons navbar-header pull-right" role="navigation">
+          <ul class="nav ace-nav">
+            <li class="grey dropdown-modal">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <i class="ace-icon fa fa-tasks"></i>
+                <span class="badge badge-grey">4</span>
+              </a>
+              <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                <li class="dropdown-header">
+                  <i class="ace-icon fa fa-check"></i>
+                  2 Tasks to complete
+                </li>
+
+                <li class="dropdown-footer">
+                  <a href="#">
+                    See tasks with details
+                    <i class="ace-icon fa fa-arrow-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="purple dropdown-modal">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+                <span class="badge badge-important">6</span>
+              </a>
+
+              <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                <li class="dropdown-header">
+                  <i class="ace-icon fa fa-exclamation-triangle"></i>
+                  6 Notifications
+                </li>
+
+                <li class="dropdown-content">
+                  <ul class="dropdown-menu dropdown-navbar navbar-pink">
+                    <li>
+                      <a href="#">
+                        <div class="clearfix">
+                          <span class="pull-left">
+                            <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+                            Nuevos Comentarios
+                          </span>
+                          <span class="pull-right badge badge-info">+12</span>
+                        </div>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#">
+                        <i class="btn btn-xs btn-primary fa fa-user"></i>
+                        Bob just signed up as an editor ...
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#">
+                        <div class="clearfix">
+                          <span class="pull-left">
+                            <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+                            Nuevos Pedidos
+                          </span>
+                          <span class="pull-right badge badge-success">+8</span>
+                        </div>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#">
+                        <div class="clearfix">
+                          <span class="pull-left">
+                            <i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
+                            Seguidores
+                          </span>
+                          <span class="pull-right badge badge-info">+8</span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown-footer">
+                  <a href="#">
+                    Ver todas las notificaciones
+                    <i class="ace-icon fa fa-arrow-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="green dropdown-modal">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                <span class="badge badge-success">1</span>
+              </a>
+              <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                <li class="dropdown-header">
+                  <i class="ace-icon fa fa-envelope-o"></i>
+                  1 Mensaje
+                </li>
+
+                <li class="dropdown-content">
+                  <ul class="dropdown-menu dropdown-navbar">
+                    <li>
+                      <a href="#" class="clearfix">
+                        <img src="assets/images/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+                        <span class="msg-body">
+                          <span class="msg-title">
+                            <span class="blue">Alex:</span>
+                            Ciao sociis natoque penatibus et auctor ...
+                          </span>
+
+                          <span class="msg-time">
+                            <i class="ace-icon fa fa-clock-o"></i>
+                            <span>a moment ago</span>
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="dropdown-footer">
+                  <a href="inbox.html">
+                    Ver todos los mensajes
+                    <i class="ace-icon fa fa-arrow-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="light-blue dropdown-modal">
+              <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                <span id="img-avatar" class="user-info"></span>
+                <span id="user_name" class="user-info">
+                <span id="user_email" class="user-info">
+                </span>
+                <i class="ace-icon fa fa-caret-down"></i>
+              </a>
+
+              <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                <li>
+                  <a href="#">
+                    <i class="ace-icon fa fa-cog"></i>
+                    Ajustes
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#">
+                    <i class="ace-icon fa fa-user"></i>
+                    Perfil
+                  </a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li>
+                  <a href="#" id="quickstart-sign-in" name="signin">
+                    <i class="ace-icon fa fa-power-off"></i>
+                    Salir
+                  </a>
+                </li>
+              </ul>
+              <div hidden="hidden" id="quickstart-account-details"></div>
+              <div hidden="hidden" id="quickstart-sign-in-status"></div>
+            </li>
+          </ul>
+        </div>
+      </div><!-- /.navbar-container -->
+    </div>
+
+
+
+    <div class="main-container ace-save-state" id="main-container">
+      <script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+      </script>
+      <div id="sidebar" class="sidebar responsive ace-save-state">
+        <script type="text/javascript">
+          try{ace.settings.loadState('sidebar')}catch(e){}
+        </script>
+        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+          <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success">
+              <i class="ace-icon fa fa-signal"></i>
+            </button>
+            <button class="btn btn-info">
+              <i class="ace-icon fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-warning">
+              <i class="ace-icon fa fa-users"></i>
+            </button>
+            <button class="btn btn-danger">
+              <i class="ace-icon fa fa-cogs"></i>
+            </button>
+          </div>
+          <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+            <span class="btn btn-info"></span>
+            <span class="btn btn-warning"></span>
+            <span class="btn btn-danger"></span>
+          </div>
+        </div><!-- /.sidebar-shortcuts -->
+
+        <ul class="nav nav-list">
+          <li class="active">
+            <a href="panel.html">
+              <i class="menu-icon fa fa-tachometer"></i>
+              <span class="menu-text"> Panel </span>
+            </a>
+            <b class="arrow"></b>
+          </li>
+
+          <li class="">
+            <a href="#" class="dropdown-toggle">
+              <i class="menu-icon fa fa-desktop"></i>
+              <span class="menu-text">
+                Datos del Usuario
+              </span>
+              <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Datos basicos
+                </a>
+                <b class="arrow"></b>
+              </li>
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Seguridad
+                </a>
+                <b class="arrow"></b>
+              </li>
+            </ul>
+          </li>
+
+          <li class="">
+            <a href="#" class="dropdown-toggle">
+              <i class="menu-icon fa fa-tag"></i>
+              <span class="menu-text"> Mi Tarjeta </span>
+              <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Gestionar
+                </a>
+                <b class="arrow"></b>
+              </li>
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Finanzas
+                </a>
+                <b class="arrow"></b>
+              </li>
+            </ul>
+          </li>
+
+          <li class="">
+            <a href="#" class="dropdown-toggle">
+              <i class="menu-icon fa fa-tag"></i>
+              <span class="menu-text"> Mis Fotos</span>
+              <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Gestionar
+                </a>
+                <b class="arrow"></b>
+              </li>
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Otros
+                </a>
+                <b class="arrow"></b>
+              </li>
+            </ul>
+          </li>
+
+          <li class="">
+            <a href="#" class="dropdown-toggle">
+              <i class="menu-icon fa fa-file-o"></i>
+              <span class="menu-text">
+                Soporte
+                <span class="badge badge-primary">3</span>
+              </span>
+              <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Preguntas frecuentes
+                </a>
+                <b class="arrow"></b>
+              </li>
+              <li class="">
+                <a href="#">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Consultas
+                </a>
+                <b class="arrow"></b>
+              </li>
+            </ul>
+          </li>
+        </ul><!-- /.nav-list    FIN PANEL IZQUIERDO    -->
+
+
+
+
+
+        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+          <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="main-content-inner">
+          <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+              <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="#">Inicio</a>
+              </li>
+              <li class="active">Panel</li>
+            </ul><!-- /.breadcrumb -->
+
+            <div class="nav-search" id="nav-search">
+              <form class="form-search">
+                <span class="input-icon">
+                  <input type="text" placeholder="Buscar ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                  <i class="ace-icon fa fa-search nav-search-icon"></i>
+                </span>
+              </form>
+            </div><!-- /.nav-search -->
+          </div>
+
+          <div class="page-content">
+            <div class="page-header">
+              <h1>
+                Panel de Usuario
+                <small>
+                  <i class="ace-icon fa fa-angle-double-right"></i>
+                  Vista General &amp; Estadísticas
+                </small>
+              </h1>
+            </div><!-- /.page-header -->
+
+
+            <div class="row">
+              <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="alert alert-block alert-success">
+                  <button type="button" class="close" data-dismiss="alert">
+                    <i class="ace-icon fa fa-times"></i>
+                  </button>
+                  <i class="ace-icon fa fa-check green"></i>
+                    Estimado usuario, Tarjeta Recargable le informa que los dias 23 y 24 de octubre, le ofrecerá un descuento del 5% en sus compras en Tiendas Falabella. Mas <a href="https://falabella.com">info</a>.
+                </div>
+
+                <div class="hr dotted"></div>
+                <div>
+                  <div id="user-profile-1" class="user-profile row">
+                    <div class="col-xs-12 col-sm-3 center">
+                      <div>
+                        <span id="img-avatar-2" class="profile-picture"></span>
+                        <div class="space-4"></div>
+      
+                      </div>
+
+                      <div class="space-6"></div>
+                      <div class="hr hr16 dotted"></div>
+                    </div>
+
+<div hidden="hidden" id="quickstart-account-details"></div>
+<div hidden="hidden" id="quickstart-sign-in-status"></div>
+<div hidden="hidden" id="quickstart-sign-up"></div>
+<div hidden="hidden" id="quickstart-verify-email"></div>
+<div hidden="hidden" id="quickstart-password-reset"></div>
+
+                    <div class="col-xs-12 col-sm-9">
+                      <div class="center">
+                        <span class="btn btn-app btn-sm btn-light no-hover">
+                          <span id="numCard" class="line-height-1 smaller-90 blue"></span>
+                          <br />
+                          <span class="line-height-1 smaller-90"> Numero de Tarjeta </span>
+                        </span>
+
+                        <span class="btn btn-app btn-sm btn-yellow no-hover">
+                          <span id="statusCard" class="line-height-1 bigger-170"></span>
+                          <br />
+                          <span class="line-height-1 smaller-90"> Estado </span>
+                        </span>
+
+                        <span class="btn btn-app btn-sm btn-pink no-hover">
+                          <span id="validityCard" class="line-height-1 bigger-170"></span>
+                          <br />
+                          <span class="line-height-1 smaller-90"> Vencimiento </span>
+                        </span>
+
+                        <span class="btn btn-app btn-sm btn-grey no-hover">
+                          $<span id="amountCard" class="line-height-1 bigger-170"></span>
+                          <br />
+                          <span class="line-height-1 smaller-90"> Monto Disponible </span>
+                        </span>
+                      </div>
+
+                      <div class="space-12"></div>
+
+                      <div class="profile-user-info profile-user-info-striped">
+                        <div class="profile-info-row">
+                          <div class="profile-info-name"> Usuario </div>
+                          <div class="profile-info-value">
+                            <span class="editable" id="name"></span>
+                          </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                          <div class="profile-info-name"> Email </div>
+                          <div class="profile-info-value">
+                            <span class="editable" id="email"></span>
+                          </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                          <div class="profile-info-name"> Ubicacion </div>
+                          <div class="profile-info-value">
+                            <i class="fa fa-map-marker light-orange bigger-110"></i>
+                            <span id="pais" class="editable" id="country"></span>
+                            <span id="ciudad" class="editable" id="city"></span>
+                          </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                          <div class="profile-info-name"> Nacimiento </div>
+                          <div class="profile-info-value">
+                            <span id="fechaNacimiento" class="editable" id="age"></span>
+                          </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                          <div class="profile-info-name"> Ingresado </div>
+                          <div class="profile-info-value">
+                            <span id="dateCreated" class="editable" id="signup"></span>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="space-20"></div>
+                        
+                      </div>
+
+                      <!--<div class="widget-box transparent">
+                        <div class="widget-header widget-header-small">
+                          <h4 class="widget-title blue smaller">
+                            <i class="ace-icon fa fa-rss orange"></i>
+                            Actividad reciente
+                          </h4>
+                          <div class="widget-toolbar action-buttons">
+                            <a href="#" data-action="reload">
+                              <i class="ace-icon fa fa-refresh blue"></i>
+                            </a>
+                            &nbsp;
+                            <a href="#" class="pink">
+                              <i class="ace-icon fa fa-trash-o"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="widget-body">
+                          <div class="widget-main padding-8">
+                            <div id="profile-feed-1" class="profile-feed">
+                              <div class="profile-activity clearfix">
+                              <div class="profile-activity clearfix">
+                                <div>
+                                  <i class="pull-left thumbicon fa fa-picture-o btn-info no-hover"></i>
+                                  <a class="user" href="#"> Alex Doe </a>
+                                  uploaded a new photo.
+                                  <a href="#">Take a look</a>
+                                  <div class="time">
+                                    <i class="ace-icon fa fa-clock-o bigger-110"></i>
+                                    5 hours ago
+                                  </div>
+                                </div>
+                                <div class="tools action-buttons">
+                                  <a href="#" class="blue">
+                                    <i class="ace-icon fa fa-pencil bigger-125"></i>
+                                  </a>
+                                  <a href="#" class="red">
+                                    <i class="ace-icon fa fa-times bigger-125"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                              <div class="profile-activity clearfix">
+                                <div>
+                                  <img class="pull-left" alt="David Palms's avatar" src="assets/images/avatars/avatar4.png" />
+                                  <a class="user" href="#"> David Palms </a>
+                                  left a comment on Alex's wall.
+                                  <div class="time">
+                                    <i class="ace-icon fa fa-clock-o bigger-110"></i>
+                                    8 hours ago
+                                  </div>
+                                </div>
+                                <div class="tools action-buttons">
+                                  <a href="#" class="blue">
+                                    <i class="ace-icon fa fa-pencil bigger-125"></i>
+                                  </a>
+                                  <a href="#" class="red">
+                                    <i class="ace-icon fa fa-times bigger-125"></i>
+                                  </a>
+                                </div>
+                              </div>
+                              <div class="profile-activity clearfix">
+                                <div>
+                                  <i class="pull-left thumbicon fa fa-pencil-square-o btn-pink no-hover"></i>
+                                  <a class="user" href="#"> Alex Doe </a>
+                                  published a new blog post.
+                                  <a href="#">Read now</a>
+                                  <div class="time">
+                                    <i class="ace-icon fa fa-clock-o bigger-110"></i>
+                                    11 hours ago
+                                  </div>
+                                </div>
+                                <div class="tools action-buttons">
+                                  <a href="#" class="blue">
+                                    <i class="ace-icon fa fa-pencil bigger-125"></i>
+                                  </a>
+                                  <a href="#" class="red">
+                                    <i class="ace-icon fa fa-times bigger-125"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="space-6"></div>
+                    </div>-->
+
+                  </div>
+                </div>
+
+                <!-- PAGE CONTENT ENDS -->
+              </div><!-- /.col -->
+
+              <div class="col-xs-12 col-sm-12">
+                <div class="col-xs-9 col-sm-9"><div id="map" ></div></div>
+                <div class="col-xs-3 col-sm-3"><div id="mis_fotos" ></div></div>
+              </div>
+
+            </div><!-- /.row -->
+          </div><!-- /.page-content -->
+        </div>
+      </div><!-- /.main-content -->
+
+      <div class="footer">
+        <div class="footer-inner">
+          <div class="footer-content">
+            <span class="bigger-120">
+              <span class="blue bolder">Tarjeta Recargable</span>
+              Application &copy; 2015-2017
+            </span>
+            &nbsp; &nbsp;
+            <span class="action-buttons">
+              <a href="#">
+                <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+              </a>
+              <a href="#">
+                <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+              </a>
+              <a href="#">
+                <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+      </a>
+    </div><!-- /.main-container -->
+
+
+
+    <!-- basic scripts -->
+    <!--[if !IE]> -->
+    <script src="assets/js/jquery-2.1.4.min.js"></script>
+
+    <!-- <![endif]-->
+
+    <!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+    <script type="text/javascript">
+      if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    </script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+
+    <!--[if lte IE 8]>
+      <script src="assets/js/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="assets/js/jquery-ui.custom.min.js"></script>
+    <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="assets/js/jquery.gritter.min.js"></script>
+    <script src="assets/js/bootbox.js"></script>
+    <script src="assets/js/jquery.easypiechart.min.js"></script>
+    <script src="assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="assets/js/jquery.hotkeys.index.min.js"></script>
+    <script src="assets/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="assets/js/select2.min.js"></script>
+    <script src="assets/js/spinbox.min.js"></script>
+    <script src="assets/js/bootstrap-editable.min.js"></script>
+    <script src="assets/js/ace-editable.min.js"></script>
+    <script src="assets/js/jquery.maskedinput.min.js"></script>
+
+    <!-- ace scripts -->
+    <script src="assets/js/ace-elements.min.js"></script>
+    <script src="assets/js/ace.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+      jQuery(function($) {
+      
+        //editables on first profile page
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
+          $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
+                                      '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';    
+        
+        //editables 
+        
+        //text editable
+          $('#username')
+        .editable({
+          type: 'text',
+          name: 'username'    
+          });
+      
+      
+        
+        //select2 editable
+        var countries = [];
+          $.each({ "CA": "Canada", "IN": "India", "NL": "Netherlands", "TR": "Turkey", "US": "United States"}, function(k, v) {
+              countries.push({id: k, text: v});
+          });
+      
+        var cities = [];
+        cities["CA"] = [];
+        $.each(["Toronto", "Ottawa", "Calgary", "Vancouver"] , function(k, v){
+          cities["CA"].push({id: v, text: v});
+        });
+        cities["IN"] = [];
+        $.each(["Delhi", "Mumbai", "Bangalore"] , function(k, v){
+          cities["IN"].push({id: v, text: v});
+        });
+        cities["NL"] = [];
+        $.each(["Amsterdam", "Rotterdam", "The Hague"] , function(k, v){
+          cities["NL"].push({id: v, text: v});
+        });
+        cities["TR"] = [];
+        $.each(["Ankara", "Istanbul", "Izmir"] , function(k, v){
+          cities["TR"].push({id: v, text: v});
+        });
+        cities["US"] = [];
+        $.each(["New York", "Miami", "Los Angeles", "Chicago", "Wysconsin"] , function(k, v){
+          cities["US"].push({id: v, text: v});
+        });
+        
+        var currentValue = "NL";
+          $('#country').editable({
+          type: 'select2',
+          value : 'NL',
+          //onblur:'ignore',
+              source: countries,
+          select2: {
+            'width': 140
+          },    
+          success: function(response, newValue) {
+            if(currentValue == newValue) return;
+            currentValue = newValue;
+            
+            var new_source = (!newValue || newValue == "") ? [] : cities[newValue];
+            
+            //the destroy method is causing errors in x-editable v1.4.6+
+            //it worked fine in v1.4.5
+            /**     
+            $('#city').editable('destroy').editable({
+              type: 'select2',
+              source: new_source
+            }).editable('setValue', null);
+            */
+            
+            //so we remove it altogether and create a new element
+            var city = $('#city').removeAttr('id').get(0);
+            $(city).clone().attr('id', 'city').text('Select City').editable({
+              type: 'select2',
+              value : null,
+              //onblur:'ignore',
+              source: new_source,
+              select2: {
+                'width': 140
+              }
+            }).insertAfter(city);//insert it after previous instance
+            $(city).remove();//remove previous instance
+            
+          }
+          });
+      
+        $('#city').editable({
+          type: 'select2',
+          value : 'Amsterdam',
+          //onblur:'ignore',
+              source: cities[currentValue],
+          select2: {
+            'width': 140
+          }
+          });
+      
+      
+        
+        //custom date editable
+        $('#signup').editable({
+          type: 'adate',
+          date: {
+            //datepicker plugin options
+                format: 'yyyy/mm/dd',
+            viewformat: 'yyyy/mm/dd',
+             weekStart: 1
+             
+            //,nativeUI: true//if true and browser support input[type=date], native browser control will be used
+            //,format: 'yyyy-mm-dd',
+            //viewformat: 'yyyy-mm-dd'
+          }
+        })
+      
+          $('#age').editable({
+              type: 'spinner',
+          name : 'age',
+          spinner : {
+            min : 16,
+            max : 99,
+            step: 1,
+            on_sides: true
+            //,nativeUI: true//if true and browser support input[type=number], native browser control will be used
+          }
+        });
+        
+      
+          $('#login').editable({
+              type: 'slider',
+          name : 'login',
+          
+          slider : {
+             min : 1,
+              max: 50,
+            width: 100
+            //,nativeUI: true//if true and browser support input[type=range], native browser control will be used
+          },
+          success: function(response, newValue) {
+            if(parseInt(newValue) == 1)
+              $(this).html(newValue + " hour ago");
+            else $(this).html(newValue + " hours ago");
+          }
+        });
+      
+        $('#about').editable({
+          mode: 'inline',
+              type: 'wysiwyg',
+          name : 'about',
+      
+          wysiwyg : {
+            //css : {'max-width':'300px'}
+          },
+          success: function(response, newValue) {
+          }
+        });
+        
+        
+        
+        // *** editable avatar *** //
+        try {//ie8 throws some harmless exceptions, so let's catch'em
+      
+          //first let's add a fake appendChild method for Image element for browsers that have a problem with this
+          //because editable plugin calls appendChild, and it causes errors on IE at unpredicted points
+          try {
+            document.createElement('IMG').appendChild(document.createElement('B'));
+          } catch(e) {
+            Image.prototype.appendChild = function(el){}
+          }
+      
+          var last_gritter
+          $('#avatar').editable({
+            type: 'image',
+            name: 'avatar',
+            value: null,
+            //onblur: 'ignore',  //don't reset or hide editable onblur?!
+            image: {
+              //specify ace file input plugin's options here
+              btn_choose: 'Change Avatar',
+              droppable: true,
+              maxSize: 110000,//~100Kb
+      
+              //and a few extra ones here
+              name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+              on_error : function(error_type) {//on_error function will be called when the selected file has a problem
+                if(last_gritter) $.gritter.remove(last_gritter);
+                if(error_type == 1) {//file format error
+                  last_gritter = $.gritter.add({
+                    title: 'File is not an image!',
+                    text: 'Please choose a jpg|gif|png image!',
+                    class_name: 'gritter-error gritter-center'
+                  });
+                } else if(error_type == 2) {//file size rror
+                  last_gritter = $.gritter.add({
+                    title: 'File too big!',
+                    text: 'Image size should not exceed 100Kb!',
+                    class_name: 'gritter-error gritter-center'
+                  });
+                }
+                else {//other error
+                }
+              },
+              on_success : function() {
+                $.gritter.removeAll();
+              }
+            },
+              url: function(params) {
+              // ***UPDATE AVATAR HERE*** //
+              //for a working upload example you can replace the contents of this function with 
+              //examples/profile-avatar-update.js
+      
+              var deferred = new $.Deferred
+      
+              var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+              if(!value || value.length == 0) {
+                deferred.resolve();
+                return deferred.promise();
+              }
+      
+      
+              //dummy upload
+              setTimeout(function(){
+                if("FileReader" in window) {
+                  //for browsers that have a thumbnail of selected image
+                  var thumb = $('#avatar').next().find('img').data('thumb');
+                  if(thumb) $('#avatar').get(0).src = thumb;
+                }
+                
+                deferred.resolve({'status':'OK'});
+      
+                if(last_gritter) $.gritter.remove(last_gritter);
+                last_gritter = $.gritter.add({
+                  title: 'Avatar Updated!',
+                  text: 'Uploading to server can be easily implemented. A working example is included with the template.',
+                  class_name: 'gritter-info gritter-center'
+                });
+                
+               } , parseInt(Math.random() * 800 + 800))
+      
+              return deferred.promise();
+              
+              // ***END OF UPDATE AVATAR HERE*** //
+            },
+            
+            success: function(response, newValue) {
+            }
+          })
+        }catch(e) {}
+        
+        /**
+        //let's display edit mode by default?
+        var blank_image = true;//somehow you determine if image is initially blank or not, or you just want to display file input at first
+        if(blank_image) {
+          $('#avatar').editable('show').on('hidden', function(e, reason) {
+            if(reason == 'onblur') {
+              $('#avatar').editable('show');
+              return;
+            }
+            $('#avatar').off('hidden');
+          })
+        }
+        */
+      
+        //another option is using modals
+        $('#avatar2').on('click', function(){
+          var modal = 
+          '<div class="modal fade">\
+            <div class="modal-dialog">\
+             <div class="modal-content">\
+            <div class="modal-header">\
+              <button type="button" class="close" data-dismiss="modal">&times;</button>\
+              <h4 class="blue">Change Avatar</h4>\
+            </div>\
+            \
+            <form class="no-margin">\
+             <div class="modal-body">\
+              <div class="space-4"></div>\
+              <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+             </div>\
+            \
+             <div class="modal-footer center">\
+              <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
+              <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+             </div>\
+            </form>\
+            </div>\
+           </div>\
+          </div>';
+          
+          
+          var modal = $(modal);
+          modal.modal("show").on("hidden", function(){
+            modal.remove();
+          });
+      
+          var working = false;
+      
+          var form = modal.find('form:eq(0)');
+          var file = form.find('input[type=file]').eq(0);
+          file.ace_file_input({
+            style:'well',
+            btn_choose:'Click to choose new avatar',
+            btn_change:null,
+            no_icon:'ace-icon fa fa-picture-o',
+            thumbnail:'small',
+            before_remove: function() {
+              //don't remove/reset files while being uploaded
+              return !working;
+            },
+            allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+            allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+          });
+      
+          form.on('submit', function(){
+            if(!file.data('ace_input_files')) return false;
+            
+            file.ace_file_input('disable');
+            form.find('button').attr('disabled', 'disabled');
+            form.find('.modal-body').append("<div class='center'><i class='ace-icon fa fa-spinner fa-spin bigger-150 orange'></i></div>");
+            
+            var deferred = new $.Deferred;
+            working = true;
+            deferred.done(function() {
+              form.find('button').removeAttr('disabled');
+              form.find('input[type=file]').ace_file_input('enable');
+              form.find('.modal-body > :last-child').remove();
+              
+              modal.modal("hide");
+      
+              var thumb = file.next().find('img').data('thumb');
+              if(thumb) $('#avatar2').get(0).src = thumb;
+      
+              working = false;
+            });
+            
+            
+            setTimeout(function(){
+              deferred.resolve();
+            } , parseInt(Math.random() * 800 + 800));
+      
+            return false;
+          });
+              
+        });
+      
+        
+      
+        //////////////////////////////
+        $('#profile-feed-1').ace_scroll({
+          height: '250px',
+          mouseWheelLock: true,
+          alwaysVisible : true
+        });
+      
+        $('a[ data-original-title]').tooltip();
+      
+        $('.easy-pie-chart.percentage').each(function(){
+        var barColor = $(this).data('color') || '#555';
+        var trackColor = '#E2E2E2';
+        var size = parseInt($(this).data('size')) || 72;
+        $(this).easyPieChart({
+          barColor: barColor,
+          trackColor: trackColor,
+          scaleColor: false,
+          lineCap: 'butt',
+          lineWidth: parseInt(size/10),
+          animate:false,
+          size: size
+        }).css('color', barColor);
+        });
+        
+        ///////////////////////////////////////////
+      
+        //right & left position
+        //show the user info on right or left depending on its position
+        $('#user-profile-2 .memberdiv').on('mouseenter touchstart', function(){
+          var $this = $(this);
+          var $parent = $this.closest('.tab-pane');
+      
+          var off1 = $parent.offset();
+          var w1 = $parent.width();
+      
+          var off2 = $this.offset();
+          var w2 = $this.width();
+      
+          var place = 'left';
+          if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
+          
+          $this.find('.popover').removeClass('right left').addClass(place);
+        }).on('click', function(e) {
+          e.preventDefault();
+        });
+      
+      
+        ///////////////////////////////////////////
+        $('#user-profile-3')
+        .find('input[type=file]').ace_file_input({
+          style:'well',
+          btn_choose:'Change avatar',
+          btn_change:null,
+          no_icon:'ace-icon fa fa-picture-o',
+          thumbnail:'large',
+          droppable:true,
+          
+          allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+          allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+        })
+        .end().find('button[type=reset]').on(ace.click_event, function(){
+          $('#user-profile-3 input[type=file]').ace_file_input('reset_input');
+        })
+        .end().find('.date-picker').datepicker().next().on(ace.click_event, function(){
+          $(this).prev().focus();
+        })
+        $('.input-mask-phone').mask('(999) 999-9999');
+      
+        $('#user-profile-3').find('input[type=file]').ace_file_input('show_file_list', [{type: 'image', name: $('#avatar').attr('src')}]);
+      
+      
+        ////////////////////
+        //change profile
+        $('[data-toggle="buttons"] .btn').on('click', function(e){
+          var target = $(this).find('input[type=radio]');
+          var which = parseInt(target.val());
+          $('.user-profile').parent().addClass('hide');
+          $('#user-profile-'+which).parent().removeClass('hide');
+        });
+        
+        
+        
+        /////////////////////////////////////
+        $(document).one('ajaxloadstart.page', function(e) {
+          //in ajax mode, remove remaining elements before leaving page
+          try {
+            $('.editable').editable('destroy');
+          } catch(e) {}
+          $('[class*=select2]').remove();
+        });
+      });
+    </script>
+  
+  </body>
+</html>

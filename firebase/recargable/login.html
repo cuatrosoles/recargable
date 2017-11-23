@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>   
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>
+        Recargable
+    </title>
+  
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,300,500,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    
+    <!-- custome css -->
+    <link href="assets/css/animate.css" rel="stylesheet">
+    <link href="assets/css/prettyPhoto.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/media.css" rel="stylesheet">
+    <link href="assets/fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="main.css" rel="stylesheet">
+
+        
+    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="">
+    <link rel="shortcut icon" href="">
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!-- Leave out Storage -->
+<!-- <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script> -->
+
+<script src="assets/js/firebase.js"></script>
+<script src="assets/js/firebase-app.js"></script>
+<script src="assets/js/firebase-auth.js"></script>
+<script src="assets/js/firebase-database.js"></script>
+<script src="assets/js/firebase-messaging.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBJ51JCZ5jz4ySNvDdoyEuCxFSS_BEOGT8",
+    authDomain: "recargableapp.firebaseapp.com",
+    databaseURL: "https://recargableapp.firebaseio.com",
+    projectId: "recargableapp",
+    storageBucket: "recargableapp.appspot.com",
+    messagingSenderId: "924921720926"
+  };
+  firebase.initializeApp(config);
+
+</script>
+
+<script type="text/javascript">
+    /**
+     * Handles the sign in button press.
+     */
+
+//////////////// [START buttoncallback]  //////////   login con facebook  /////////////////////////////////////////////
+    function toggleSignInFacebook() {
+      if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.FacebookAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('user_birthday');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          document.getElementById('quickstart-oauthtoken').textContent = token;
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+      document.getElementById('quickstart-sign-in-facebook').disabled = true;
+      // [END_EXCLUDE]
+    }
+//////////////// [END buttoncallback]
+
+//////////////// [START buttoncallback]  //////////   login con google   /////////////////////////////////////////////
+    function toggleSignInGoogle() {
+      if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.GoogleAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          document.getElementById('quickstart-oauthtoken').textContent = token;
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+      document.getElementById('quickstart-sign-in-google').disabled = true;
+      // [END_EXCLUDE]
+    }
+//////////////////////////// [END buttoncallback]
+
+    function toggleSignIn() {
+      if (firebase.auth().currentUser) {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      } else {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        if (email.length < 4) {
+          alert('Por favor ingresa una direccion de email.');
+          return;
+        }
+        if (password.length < 4) {
+          alert('Por favor ingresa una contraseña.');
+          return;
+        }
+        // Sign in with email and pass.
+        // [START authwithemail]
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/wrong-password') {
+            alert('Contraseña equivocada.');
+          } else {
+            alert(errorMessage);
+          }
+          console.log(error);
+          document.getElementById('quickstart-sign-in').disabled = false;
+          // [END_EXCLUDE]
+        });
+        // [END authwithemail]
+      }
+      document.getElementById('quickstart-sign-in').disabled = true;
+    }
+    /**
+     * Handles the sign up button press.
+     */
+    function handleSignUp() {
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      if (email.length < 4) {
+        alert('Por favor ingresa una direccion de email.');
+        return;
+      }
+      if (password.length < 4) {
+        alert('Por favor ingresa una contraseña.');
+        return;
+      }
+      // Sign in with email and pass.
+      // [START createwithemail]
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/weak-password') {
+          alert('La contraseña es demasiada debil.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+      // [END createwithemail]
+    }
+    /**
+     * Sends an email verification to the user.
+     */
+    function sendEmailVerification() {
+      // [START sendemailverification]
+      firebase.auth().currentUser.sendEmailVerification().then(function() {
+        // Email Verification sent!
+        // [START_EXCLUDE]
+        alert('Correo de verificacion enviado!');
+        // [END_EXCLUDE]
+      });
+      // [END sendemailverification]
+    }
+    function sendPasswordReset() {
+      var email = document.getElementById('email').value;
+      // [START sendpasswordemail]
+      firebase.auth().sendPasswordResetEmail(email).then(function() {
+        // Password Reset Email Sent!
+        // [START_EXCLUDE]
+        alert('Correo de cambio de contraseña enviado!');
+        // [END_EXCLUDE]
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/invalid-email') {
+          alert(errorMessage);
+        } else if (errorCode == 'auth/user-not-found') {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+      // [END sendpasswordemail];
+    }
+    /**
+     * initApp handles setting up UI event listeners and registering Firebase auth listeners:
+     *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
+     *    out, and that is where we update the UI.
+     */
+    function initApp() {
+      // Listening for auth state changes.
+      // [START authstatelistener]
+      firebase.auth().onAuthStateChanged(function(user) {
+        // [START_EXCLUDE silent]
+        document.getElementById('quickstart-verify-email').disabled = true;
+
+        // [END_EXCLUDE]
+        if (user) {
+          // User is signed in.
+          window.location.replace("panel.html");
+
+          // [START_EXCLUDE]
+          document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+          if (!emailVerified) {
+            document.getElementById('quickstart-verify-email').disabled = false;
+          }
+
+          // [END_EXCLUDE]
+        } else {
+          // User is signed out.
+          // [START_EXCLUDE]
+          document.getElementById('quickstart-sign-in-status').textContent = 'Deslogueado';
+          document.getElementById('quickstart-sign-in').textContent = 'Ingresar';
+          document.getElementById('quickstart-sign-in-facebook').textContent = 'Ingresa con Facebook';
+          document.getElementById('quickstart-sign-in-google').textContent = 'Ingresa con Google+';
+          document.getElementById('quickstart-account-details').textContent = 'null';
+          // [END_EXCLUDE]
+        }
+        // [START_EXCLUDE silent]
+
+        document.getElementById('quickstart-sign-in').disabled = false;
+        document.getElementById('quickstart-sign-in-facebook').disabled = false;
+        document.getElementById('quickstart-sign-in-google').disabled = false;
+        // [END_EXCLUDE]
+      });
+      // [END authstatelistener]
+      document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+      document.getElementById('quickstart-sign-in-facebook').addEventListener('click', toggleSignInFacebook, false);
+      document.getElementById('quickstart-sign-in-google').addEventListener('click', toggleSignInGoogle, false);
+      document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+      document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+      document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+    }
+    window.onload = function() {
+      initApp();
+    };
+  </script>
+
+
+  </head>
+  <body>
+  
+  <!-- Parallax Background
+  ================================================== -->
+  <!-- image is set in the CSS as a background image -->
+  <div id="parallax"></div>
+  <!-- End Parallax Background
+  ================================================== -->
+  
+  <!-- Start Header
+  ================================================== -->
+  <header id="header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- Your Logo -->
+        <a href="index.html" class="navbar-brand"><img src="assets/images/logo.png" alt="Recargable"></a>
+      </div>
+      <!-- Start Navigation -->
+      <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="#hero">Inicio</a>
+          </li>
+          <li>          
+            <a href="login.html">ACCESO USUARIOS</a>
+          </li>
+          <li>
+            <a href="#image">Como funciona</a>
+          </li>
+          <li>
+            <a href="#gallery">Galeria</a>
+          </li>
+             <li>
+            <a href="#team">Equipo</a>
+          </li>
+            
+          <li>
+            <a href="#testimonial">Testimonios</a>
+          </li>
+          <li>
+            <a href="#newsletter">Subscribirse</a>
+          </li>
+             <li>
+            <a href="#contact">Contacto</a>
+          </li>
+            
+            
+        </ul>
+          
+      <ul class="nav navbar-nav navbar-right">
+                  <li id="fat-menu" class="dropdown"> <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown"> Extras <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="faq.html">Preguntas Frecuentes</a></li>
+                      <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="icons.html">Set de Iconos</a></li>
+                       <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="typography.html">Tipografía</a></li>
+                       <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="buttons.html">Set de Botones</a></li>
+
+                    </ul>
+                  </li>
+                </ul>  
+      </nav>
+    </div>
+  </header>
+
+<div id="panel_identificacion" style="width: 95%; min-height: 340px; margin-top: 10%;">
+  <div id="login_email" style="width: 46%; margin-left: 5%; margin-bottom: 5%; background-color: rgba(255, 255, 255, 0.4); padding: 2%; float:left; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px;">
+        <h4 style="color: #b94a48;background-color: rgba(255, 255, 255, 0.3); padding: 2.5%; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px; margin-bottom: 8%!important;">Ingreso con Email y Contraseña</h4>
+        <div>
+          <input class="focus" style="display:inline;width:auto;padding:5px;" type="text" id="email" name="email" placeholder="Email"/>
+          &nbsp;&nbsp;&nbsp;
+          <input class="focus" style="display:inline;width:auto;padding:5px;" type="password" id="password" name="password" placeholder="Contraseña"/>
+          <br/><br/><br/>
+          <button disabled class="boton_ingreso" id="quickstart-sign-in" name="signin">Ingresar</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="boton_registro" id="quickstart-sign-up" name="signup">Registrarse</button>
+          &nbsp;&nbsp;&nbsp;
+          <button hidden="hidden" class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Enviar Email de Verificacion</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="boton_contraseña" id="quickstart-password-reset" name="verify-email">Perdí la contraseña</button>
+
+          <!-- Container where we'll display the user details -->
+          <div class="quickstart-user-details-container" style="display: none!important;">
+            Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
+            <div>Firebase auth <code>currentUser</code> object value:</div>
+            <pre><code id="quickstart-account-details">null</code></pre>
+            <pre><code id="quickstart-oauthtoken">null</code></pre>
+          </div>
+        </div>
+  </div>
+  <div id="login_social" style="width: 46%; margin-top: 9%; margin-left: 54%; margin-bottom: 5%; background-color: rgba(255, 255, 255, 0.4); padding: 2%;border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px;">
+        <h4 style="color: #b94a48;background-color: rgba(255, 255, 255, 0.3); padding: 2.5%; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px; margin-bottom: 2%!important;">Ingresa con tus Redes Sociales</h4>
+        <div id="login_facebook">
+          <img id="quickstart-sign-in-facebook" src="assets/images/loginfacebook.png" alt="Ingresa con Facebook" width="61%;" style="margin-left: -20px;">          
+        </div>
+
+        <div id="login_google">
+          <img id="quickstart-sign-in-google" src="assets/images/logingoogle.png" alt="Ingresa con Google+" width="46%;">          
+        </div>
+  </div>
+</div>  
+
+<section id="footer">
+      <div class="container">
+        <div class="row">                
+              <div class="col-sm-12 col-md-6 col-lg-6 align-center">
+              <div class="site-info clearfix">
+              <p class="copyright"><small>Copyright &copy; 2017 Tarjeta Recargable All Rights Reserved.</small> </p>
+              </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-6 align-center">           
+              </div>
+            <span id="top-link-block" class="hidden">
+            <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+                <i class="glyphicon glyphicon-chevron-up"></i>
+            </a>
+            </span>                    
+        </div>        
+      </div>
+</section>         
+<!-- ==================================================
+  End Contact Blcok -->    
+    
+  
+<!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="assets/js/jquery-1.10.2.min.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
+  <script src="assets/js/waypoints.min.js"></script>
+  <script src="assets/js/jquery.scrollto.min.js"></script>
+  <script src="assets/js/jquery.localscroll.min.js"></script>
+  <script src="assets/js/jquery.prettyPhoto.js"></script>
+  <script src="assets/js/scripts.js"></script>
+  <script src="assets/js/styleswitcher.js"></script>
+    
+  <script type="text/javascript">
+    if ( ($(window).height() + 100) < $(document).height() ) {
+    $('#top-link-block').removeClass('hidden').affix({
+        // how far to scroll down before link "slides" into view
+        offset: {top:100}
+    });
+  }
+  </script> 
+    
+  <script type="text/javascript">
+    $(function(){
+        $(".switcher-btn").on("click", function(e) {
+            e.preventDefault();
+            var div = $(".switcher-wrapper");
+            if (div.css("left") === "-160px") {
+                $(".switcher-wrapper").animate({
+                    left: "0px"
+                });
+            } else {
+                $(".switcher-wrapper").animate({
+                    left: "-160px"
+                });
+            }
+        });
+    });    
+  </script>  
+  
+  </body>
+</html>

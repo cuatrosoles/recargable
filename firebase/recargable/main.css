@@ -1,0 +1,90 @@
+.boton_ingreso{
+    text-decoration: none;
+    padding: 2px 45px;
+    font-weight: 500;
+    font-size: 1.35em;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 4px;
+    border: 0px solid #1883ba;
+  }
+  .boton_ingreso:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+  }
+
+  .boton_registro{
+    text-decoration: none;
+    padding: 2px 8px;
+    font-weight: 500;
+    font-size: 1.35em;
+    color: #ffffff;
+    background-color: #468847;
+    border-radius: 4px;
+    border: 0px solid #468847;
+  }
+  .boton_registro:hover{
+    color: #468847;
+    background-color: #ffffff;
+  }
+
+  .boton_contraseña{
+    text-decoration: none;
+    padding: 1px 4px;
+    font-weight: 300;
+    font-size: 1.15em;
+    color: #ffffff;
+    background-color: #e67e22;
+    border-radius: 4px;
+    border: 0px solid #e67e22;
+  }
+  .boton_contraseña:hover{
+    color: #e67e22;
+    background-color: #ffffff;
+  }
+
+input[type="text"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+input[type="text"]:focus {
+  outline: none;
+}
+.style-2 input[type="text"] {
+  padding: 10px;
+  border: solid 5px #c9c9c9;
+  transition: border 0.3s;
+}
+.style-2 input[type="text"]:focus,
+.style-2 input[type="text"].focus {
+  border: solid 5px #969696;
+}
+
+input[type="password"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+input[type="password"]:focus {
+  outline: none;
+}
+.style-2 input[type="password"] {
+  padding: 10px;
+  border: solid 5px #c9c9c9;
+  transition: border 0.3s;
+}
+.style-2 input[type="password"]:focus,
+.style-2 input[type="password"].focus {
+  border: solid 5px #969696;
+}

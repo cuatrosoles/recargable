@@ -1,0 +1,103 @@
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: rgba(255, 255, 255, 0);
+    color:#e74c3c;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: rgba(255, 255, 255, 0);
+    color: #e74c3c;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: #f5f5f5;
+    color: #9d56b9;
+    text-decoration: none;
+}
+
+#accordion .panel-title > a{color: #e74c3c;}
+.overview h1 {
+    color:#e74c3c;
+}
+.colored-line-left::after {
+    background-color: #e74c3c;
+
+}
+
+.item-list-right li i:hover {
+    background:#e74c3c none repeat scroll 0 0;
+    box-shadow: 0 0 0 5px #e74c3c;
+}
+.item-list-right li i{
+	color:#e74c3c;
+}
+
+.item-list-left li i{
+	color:#e74c3c;	
+	}
+	
+	.item-list-left li i:hover {
+    background:#e74c3c none repeat scroll 0 0;
+    box-shadow: 0 0 0 5px #e74c3c;
+}
+
+.btn-default, .label-default {
+    background-color:#e74c3c;
+    border-color:#e74c3c;
+
+}
+
+.social_icons ul li i:hover{
+ color:#e74c3c;
+}
+	
+	
+.btn-default:hover, .btn-default:focus {
+    background-color:#ed5f51;
+    border-color:#ed5f51;
+    color: #fff;
+}	
+
+.copyright a:hover {
+    color: #e74c3c;
+    opacity: 1;
+}
+
+.form-control {
+    color:#e74c3c;
+}
+
+
+.spotlight-features li:hover .hi-icon-2::before {
+    animation: 2s linear 0s normal none infinite running spinAround;
+    box-shadow: 0 0 0 2px #e74c3c;
+	border-radius: 50%;
+	background:#e74c3c;
+	color:#fff;
+	   }
+	   
+.carousel-indicators .active {
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+    border-radius: 10px;
+    height: 15px;
+    margin: 0 2px;
+    width: 15px;
+}	   
+	   
+#color-overlay {
+    background-color: rgba(143, 68, 173, 0.8);
+}	
+
+.carousel-indicators li.abc {
+   border: 1px solid #e74c3c !important;
+} 
+
+.dark-theme .overview h1 {color: #fff !important;
+}
+.dark-theme .hi-icon-2-wrap {color: #e74c3c;display: inline-block;float: left;margin: 0 15px 0 auto;text-align: center;} 
+dark-theme .item-list-right h3, .dark-theme.item-list-left h3 {color: #fff !important;} 
+.dark-theme #download h1::after {background-color: purple;}
+.dark-theme .colored-lines-left::after{background-color: purple;}	
+.dark-theme .sixteen a i:hover {background-color: purple; border-color: purple;}
+.dark-theme .team-col h3{color:#e74c3c;}
+.dark-theme #contact h3::before {background:purple none repeat scroll 0 0;}

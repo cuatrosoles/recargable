@@ -1,0 +1,408 @@
+@media screen and (min-width :200px) and (max-width :760px){
+.benefits img {
+    max-width: 60%;
+}
+.about-right  {
+    padding: 0;
+
+}
+.carousel-inner blockquote {
+    border: medium none;
+    margin: 0;
+    padding: 40px 15% 0;
+    text-align: center;
+}
+ .hi-icon-2{margin: 0px !important;}
+ .about-right p {
+    float: none;
+    margin-left: 62px !important;
+}
+
+ #gallery a {
+    display: block;
+    height: auto;
+    margin-bottom: 20px !important;
+}
+ #gallery img {
+    height: auto;
+    width: 100%;
+}
+
+.about-right .about-p{
+    margin: 0 !important;
+}
+.sixteen i {
+    font-size: 24px;
+    height: 38px;
+    padding-top: 4px;
+    width: 38px;
+	margin-bottom:15px;
+}
+.about-right p{margin-left: 40px; float: none;}
+.row{
+margin:0;
+}
+.iphone{
+display:none;
+}
+.home_content {
+    margin-top: 7rem;
+}
+.navbar-brand {
+   font-size: 22px;
+}
+.slogan {
+    font-size: 36px !important;
+}
+.download-a.a li a {
+    margin: 0 10px 0 0;
+}
+
+#hero{
+opacity:1 !important;
+}
+
+.screen {
+display:none;
+}
+.btn-default, .label-default {
+    padding: 0;
+}
+
+.copyright a:first-child {
+    margin-left: 0;
+}
+
+.social_icons {
+    float: left;
+	margin:13px 0 0;
+}
+
+#top-link-block.affix {
+    bottom: 18px;
+    margin: 0 10px 0 0;
+    right: 0;
+}
+.btn-default, .label-default {
+    padding: 8px !important;
+}
+.item-list-right li {
+    padding: 0 60px 20px 0;
+    position: relative;
+    text-align: center;
+}
+.item-list-right li i{
+position:relative;
+}
+.item-list-right.item-list-big li {
+    list-style: outside none none;
+    padding: 0 35px 60px 0;
+}
+
+.item-list-right h3, .item-list-left h3 {
+    margin: 20px 0 0;
+}
+
+.item-list-left li i {
+    font-size: 32px;
+    left: 0;
+    position: relative;
+    top: 0;
+}
+.item-list-left li {
+    position: relative;
+    text-align: center;
+}
+.item-list-left.item-list-big li {
+    list-style: outside none none;
+    margin: 0 42px 0 0;
+    padding: 0 0 60px;
+}
+.form-group.name {
+    float: left;
+    width: 100%;
+}
+.form-group.email {
+    float: left;
+    width: 100%;
+}
+#contact {
+    padding: 36px 0 18px;
+}
+
+
+
+
+
+}
+
+@media screen and (min-width :320px) and (max-width :480px){
+.app-a.a li a {
+    margin: 0 17px 0 -18px !important;
+}
+.sixteen i {
+    height: 41px;
+    padding-top: 7px;
+    width: 41px;
+}
+.item-list-right li i {
+    position: relative;
+}
+.item-list-right li {
+    text-align: center;
+}
+.item-list-right h3, .item-list-left h3 {
+    font-size: 25px;
+	 margin-top: 16px;
+}
+
+.item-list-right.item-list-big li {
+
+    padding: 1px 0 60px;
+	margin: 0 24px 0 0;
+}
+
+.item-list-left li i {
+    position: relative;
+}
+
+.item-list-left.item-list-big li {
+    margin: 0 29px 29px 0;
+    padding: 0;
+}
+.item-list-left li {
+    position: relative;
+    text-align: center;
+}
+
+.hi-icon-2-wrap {
+    margin: 0 15px 15px auto !important;
+}
+
+.carousel-control {
+    height:40px;
+    width:40px;
+}
+#contact h6 {
+    font-size: 14px;
+    line-height: 1.72rem;
+
+}
+
+
+
+
+}
+
+
+@media screen and (min-width :240px) and (max-width :320px){
+
+.navbar-toggle {
+    padding: 9px 6px;
+}
+.navbar-brand > img {
+    margin: 14px 0 0;
+    max-width: 86%;
+}
+.navbar-inverse .navbar-brand {
+    padding: 13px 0;
+}
+.app-a.a {
+ 
+   padding: 0;
+}
+.app-a.a li a {
+    margin: 0 !important;
+}
+.col-md-3.col-sm-6.gallery {
+    width: 100%;
+}
+
+
+.item-list-right h3, .item-list-left h3 {
+    font-size: 23px;
+}
+
+.carousel-inner blockquote {
+    padding: 34px 0;
+}
+
+.about h2 {
+    font-size: 3rem;
+}
+#testimonial h1 {
+font-size:20px !important;
+}
+
+}
+
+
+
+@media screen and (max-width: 980px) {
+.app-a.a li a {
+    margin: 0 16px 15px;
+}
+.team-col {
+    margin-bottom: 23px;
+}
+.about-right {
+    padding: 17px 0;
+}
+.benefits {
+    margin-bottom: 25px;
+}
+.slogan {
+   font-size: 28px;
+}
+.home_content > p {
+    font-size: 19px;
+}
+.navbar-inverse .navbar-nav > li > a {
+    font-size: 11px;
+}
+
+.download-a.a li a {
+    margin: 0 5px 0 0;
+}
+.iphone {
+    margin: 73px auto 0;
+}
+.screen {
+    margin: 0 0 0 0px;
+}
+
+
+.social_icons {
+    float: left;
+    margin: 11px 0 0;
+}
+
+#top-link-block.affix {
+    bottom: 18px;
+    margin: 0 10px 0 0;
+    right: 0;
+}
+.btn-default, .label-default {
+    padding: 10px;
+}
+.col-2 {
+    left: 0;
+    width: 100%;
+}
+.col-1 {
+    width: 100%;
+}
+
+.col-3 {
+ display:none;
+}
+.item-list-right li i {
+    position: relative;
+}
+.item-list-right li {
+    text-align: center;
+}
+.item-list-right h3, .item-list-left h3 {
+    font-size: 25px;
+	 margin-top: 16px;
+}
+
+.item-list-right.item-list-big li {
+
+    padding: 1px 0 60px;
+	margin: 0 24px 0 0;
+}
+
+.item-list-left li i {
+    position: relative;
+}
+
+.item-list-left.item-list-big li {
+    margin: 0 29px 29px 0;
+    padding: 0;
+}
+.item-list-left li {
+    position: relative;
+    text-align: center;
+}
+
+}
+
+
+@media screen and (max-width: 1280px) {
+.navbar-nav > li > a {
+    margin: 6px 8px !important;
+}
+
+.navbar-inverse .navbar-brand{margin-right: 0;}
+.banner-icon{display: none;} 
+
+
+.iphone {
+    margin: 91px 0;
+}
+.benefits img {
+    max-width: 60%;
+}
+.item-list-right h3, .item-list-left h3 {
+    font-size: 29px;
+    font-weight: lighter;
+}
+.spotlight-features li {
+    margin-bottom:10px;
+}
+
+
+.col-1 ul{
+
+}
+.screen {
+    margin: 0;
+}
+
+.col-2 ul{
+
+}
+
+.hi-icon-2-wrap {
+    margin: 0 15px 3px auto;
+}
+
+.copyright a:first-child {
+    margin-left: 7px;
+}
+
+#top-link-block.affix {
+    bottom: 18px;
+    float: right;
+    right: 0;
+}
+.hi-icon-2 {
+    margin: 0 0 0 -25px;
+}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+    .navbar-collapse.in{overflow: inherit !important;}
+    .navbar-collapse{width: 100%;}
+    .banner-icon{display: none;}
+    .maskHover{}
+    .thumbnail{padding: 0;}
+	.home_content{margin-top: 7rem;}
+.download-a.a{margin-bottom: 60px;}
+.download-a.a li a{width: 196px; margin: 0 4px 0 0;}
+.slogan{font-size: 28px;}   
+}
